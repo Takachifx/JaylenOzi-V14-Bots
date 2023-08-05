@@ -1,4 +1,6 @@
 const { Client, Collection, WebhookClient, Intents } = require("discord.js");
+const config = require('./config.json');
+
 const client = global.bot = new Client({
   fetchAllMembers: true,
   intents: [ 32767 ],
